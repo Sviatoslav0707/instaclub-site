@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- OG -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Инстаклаб — клуб, где блог оживает">
   <meta property="og:description" content="Запусти блог, прокачай контент и стань заметным. Простые шаги, разборы, эфиры, окружение.">
@@ -15,7 +16,8 @@
   <meta property="og:url" content="https://example.com">
   <style>
     :root{--bg:#0f1221;--card:#14182b;--text:#f6f7fb;--muted:#c9cee5;--brand1:#ff3d6e;--brand2:#ff9a3d;--accent:#ffd35c;--ok:#4cd97b;--radius:14px;--shadow:0 10px 30px rgba(0,0,0,.35)}
-    *{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--text);font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.55}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.55}
     a{color:var(--accent);text-decoration:none}
     .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
     header{background:linear-gradient(135deg,var(--brand1),var(--brand2));padding:56px 0 72px;border-bottom-left-radius:42px;border-bottom-right-radius:42px}
@@ -73,7 +75,9 @@
     <img src="assets/hero_group.jpg" alt="Команда Инстаклаба" style="width:100%;height:auto;border-radius:20px;display:block">
   </div>
 </header>
+
 <main>
+  <!-- Что внутри -->
   <section class="section">
     <div class="wrap">
       <div class="kicker">Что внутри</div>
@@ -83,8 +87,8 @@
         <div class="card feature"><h3>База знаний</h3><p class="muted">Сторис, первый рилс, мышление блогера — коротко и по делу.</p></div>
         <div class="card feature"><h3>Еженедельные задания</h3><p class="muted">Простые задачи на 15–20 минут, которые реально двигают блог.</p></div>
         <div class="card feature"><h3>Разборы</h3><p class="muted">Обратная связь по рилсам и профилям: что правим и зачем.</p></div>
-        <div class="card feature"><h3>Лайк-тайм</h3><p class="muted">Взаимная активность комьюнити, чтобы пнуть охваты.</p></div>
-        <div class="card feature"><h3>Эфиры и гайды</h3><p class="muted">Аудио/видео эфиры, полезные статьи, контент-банк заголовков и рубрик.</p></div>
+        <div class="card feature"><h3>Лайк‑тайм</h3><p class="muted">Взаимная активность комьюнити, чтобы пнуть охваты.</p></div>
+        <div class="card feature"><h3>Эфиры и гайды</h3><p class="muted">Аудио/видео эфиры, полезные статьи, контент‑банк заголовков и рубрик.</p></div>
       </div>
     </div>
   </section>
@@ -98,7 +102,7 @@
         <!-- Анастасия -->
         <div class="card feature" style="text-align:center; padding:28px">
           <img src="review_anastasia.jpg?v=3" alt="Анастасия"
-     style="width:100px;height:100px;border-radius:50%;margin-bottom:16px">
+               style="width:100px;height:100px;border-radius:50%;margin-bottom:16px">
           <p><b>«Я просто сняла рилс — и он набрал 60 миллионов…»</b></p>
           <p class="muted">
             Анастасия пришла на курс, как и ты — с желанием начать, но с кучей сомнений.
@@ -134,7 +138,7 @@
           <ul class="list">
             <li>Доступ ко всей базе знаний</li>
             <li>Еженедельные задания и разборы</li>
-            <li>Эфиры, контент-банк, лайк-тайм</li>
+            <li>Эфиры, контент‑банк, лайк‑тайм</li>
             <li>Живые встречи (онлайн/офлайн)</li>
           </ul>
           <div class="ctaRow" style="margin-top:16px">
@@ -142,15 +146,16 @@
           </div>
           <p class="muted" style="margin-top:10px">Возврат возможен в течение 2 календарных дней с момента выдачи доступа — по оферте.</p>
         </div>
+
         <div class="card plan">
           <h3>Что будет дальше</h3>
           <ul class="list">
-            <li>Сразу получишь «Включение новичка» и чек-лист первой недели.</li>
+            <li>Сразу получишь «Включение новичка» и чек‑лист первой недели.</li>
             <li>Добавим в чат — там поддержка и обратная связь.</li>
             <li>Раз в неделю — эфир/гайд и разборы рилсов.</li>
             <li>Продление 999₽/мес — чтобы не терять темп и окружение.</li>
           </ul>
-          <p class="muted" style="margin-top:14px">Документы: <a href="oferta.pdf">Оферта</a> • <a href="privacy.pdf">Политика конфиденциальности</a></p>
+          <!-- Блок документов удалён отсюда и перенесён в футер -->
         </div>
       </div>
     </div>
@@ -163,27 +168,37 @@
       <div class="card faq" role="region" aria-label="FAQ">
         <div class="q" tabindex="0">Я полный ноль. У меня получится?</div>
         <div class="a">Да. Клуб сделан как раз под старт: «Включение новичка», короткие задания, поддержка и разборы.</div>
+
         <div class="q" tabindex="0">Сколько времени нужно в день?</div>
         <div class="a">15–20 минут на задание + 5–7 сторис. Этого хватит, чтобы двигаться без выгорания.</div>
+
         <div class="q" tabindex="0">Как оформить продление за 999₽?</div>
         <div class="a">Если оплачиваешь месяц за месяцем без пауз — цена фиксируется. Пропустил(а) — снова 1 999₽ за входной месяц.</div>
+
         <div class="q" tabindex="0">Можно ли вернуть деньги?</div>
         <div class="a">Да, в течение 2 календарных дней с момента предоставления доступа. Условия — в оферте.</div>
+
         <div class="q" tabindex="0">Где идёт оплата?</div>
-        <div class="a">Через Telegram-бота (быстро и удобно). Можно написать в директ — поможем вручную.</div>
+        <div class="a">Через Telegram‑бота (быстро и удобно). Можно написать в директ — поможем вручную.</div>
       </div>
     </div>
   </section>
 </main>
+
 <footer class="wrap">
   <p class="muted">Исполнитель: ИП Максименко Олег Владимирович, ИНН 025301243584. Все права защищены.</p>
+  <p class="muted">Документы: <a href="oferta.pdf">Оферта</a> • <a href="privacy.pdf">Политика конфиденциальности</a></p>
 </footer>
+
 <script>
+  // FAQ
   document.querySelectorAll('.faq .q').forEach(q=>{
     q.addEventListener('click',()=>toggleQA(q));
     q.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleQA(q);} });
   });
   function toggleQA(q){ const a=q.nextElementSibling; a.style.display=a.style.display==='block'?'none':'block'; }
+
+  // Счётчик мест (демо)
   const seatEls=document.querySelectorAll('.seat'); const left=28;
   seatEls.forEach(el=>el.textContent=`Первые 50 — 1 499₽ • осталось мест: ${left}`);
 </script>
