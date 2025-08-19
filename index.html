@@ -67,19 +67,9 @@
     .illus{min-height:260px;background:linear-gradient(135deg,#ffffff1a,#00000020),url('assets/hero_group.jpg') center/cover;border-radius:20px}
     footer{padding:40px 0 70px;color:var(--muted)}
 
-    /* Верхняя панель таймера (статус) */
+    /* Верхняя панель таймера (10 минут) */
     #timerBar{position:sticky;top:0;z-index:9999;background:#0a0d1c;border-bottom:1px solid #222845;padding:10px 16px;text-align:center;font-weight:700}
     #countdown{display:inline-block;min-width:92px}
-
-    /* Плавающий чип-таймер — следует за курсором / прилипает к CTA */
-    #timerFloat{
-      position:fixed;left:16px;top:16px;z-index:9999;
-      background:#1b2038;border:1px solid #2d3358;box-shadow:0 6px 22px rgba(0,0,0,.35);
-      padding:8px 12px;border-radius:999px;font-weight:800;display:flex;align-items:center;gap:8px;
-      transition:transform .2s ease, opacity .2s ease;
-    }
-    #timerFloat .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
-    #timerFloat .t{min-width:64px;text-align:center}
 
     /* Курсор‑хало */
     #cursorBlob{position:fixed;left:0;top:0;width:28px;height:28px;border-radius:50%;pointer-events:none;z-index:9998;background:radial-gradient(ellipse at center,#ffffff88 0%,#ffffff22 60%,transparent 72%);mix-blend-mode:screen;transform:translate(-50%,-50%);opacity:.85;transition:opacity .2s ease}
@@ -93,23 +83,14 @@
       .h1{font-size:34px}
       .grid3{grid-template-columns:1fr}
       .grid2,.price{grid-template-columns:1fr}
-      /* на тач – фиксируем чип внизу справа */
-      #timerFloat{left:auto;right:16px;bottom:16px;top:auto}
     }
   </style>
 </head>
 <body>
 
-<!-- Статус-бар таймера -->
+<!-- Таймер 10 минут -->
 <div id="timerBar">Спец‑условия активны ещё: <span id="countdown">--:--</span>
   <a class="btn primary" style="padding:8px 12px;margin-left:10px" href="https://t.me/intaclub_bot" target="_blank" rel="noopener">Забрать место</a>
-</div>
-
-<!-- Плавающий чип-таймер -->
-<div id="timerFloat" aria-live="polite">
-  <span class="dot" aria-hidden="true"></span>
-  <span class="t" id="countdownFloat">--:--</span>
-  <span style="opacity:.8">осталось</span>
 </div>
 
 <!-- Курсор‑хало и конфетти -->
@@ -123,7 +104,7 @@
       <h1 class="h1">Инстаклаб — клуб, где блог оживает</h1>
       <p class="lead">Запусти блог без хаоса и страха камеры. Простые шаги, разборы и окружение, которое поддержит.</p>
       <div class="ctaRow" role="group" aria-label="основные действия">
-        <a class="btn primary cta" id="ctaHero" href="https://t.me/intaclub_bot" target="_blank" rel="noopener">Открыть бота</a>
+        <a class="btn primary cta" href="https://t.me/intaclub_bot" target="_blank" rel="noopener">Открыть бота</a>
         <a class="btn secondary" href="#price">Смотреть тариф</a>
       </div>
       <div class="note">Первый платёж — <b>1 999₽</b>. Продление — <b>999₽/мес</b>. <span class="seat">Первые 50 — 1 499₽.</span></div>
@@ -207,7 +188,7 @@
     <div class="wrap">
       <h2 id="price-h">Просто и честно — один тариф</h2>
       <div class="price">
-        <div class="card plan" role="region" aria-label="Тариф Месячная подписка" id="planMain">
+        <div class="card plan" role="region" aria-label="Тариф Месячная подписка">
           <h3>Месячная подписка</h3>
           <div class="priceTag">1 999₽</div>
           <p class="muted">Продление без перерыва — <b>999₽/мес</b>.</p>
@@ -219,9 +200,9 @@
             <li>Живые встречи (онлайн/офлайн)</li>
           </ul>
           <div class="ctaRow" style="margin-top:16px">
-            <a class="btn primary cta" id="ctaPrice" href="https://t.me/intaclub_bot" target="_blank" rel="noopener">Перейти к оплате в боте</a>
+            <a class="btn primary cta" href="https://t.me/intaclub_bot" target="_blank" rel="noopener">Перейти к оплате в боте</a>
           </div>
-          <p class="muted" style="margin-top:10px">Возврат возможен в течение 2 календарных дней с момента предоставления доступа — по оферте.</p>
+          <p class="muted" style="margin-top:10px">Возврат возможен в течение 2 календарных дней с момента выдачи доступа — по оферте.</p>
         </div>
         <div class="card plan">
           <h3>Что будет дальше</h3>
@@ -241,20 +222,20 @@
     <div class="wrap">
       <h2>Частые вопросы</h2>
       <div class="card faq" role="region" aria-label="FAQ">
-        <div class="q" tabindex="0">Я полный ноль. У меня получится?</div>
-        <div class="a">Да. Клуб сделан как раз под старт: «Включение новичка», короткие задания, поддержка и разборы.</div>
+        <button class="q" aria-expanded="false">Я полный ноль. У меня получится?</button>
+        <div class="a" hidden>Да. Клуб сделан как раз под старт: «Включение новичка», короткие задания, поддержка и разборы.</div>
 
-        <div class="q" tabindex="0">Сколько времени нужно в день?</div>
-        <div class="a">15–20 минут на задание + 5–7 сторис. Этого хватит, чтобы двигаться без выгорания.</div>
+        <button class="q" aria-expanded="false">Сколько времени нужно в день?</button>
+        <div class="a" hidden>15–20 минут на задание + 5–7 сторис. Этого хватит, чтобы двигаться без выгорания.</div>
 
-        <div class="q" tabindex="0">Как оформить продление за 999₽?</div>
-        <div class="a">Если оплачиваешь месяц за месяцем без пауз — цена фиксируется. Пропустил(а) — снова 1 999₽ за входной месяц.</div>
+        <button class="q" aria-expanded="false">Как оформить продление за 999₽?</button>
+        <div class="a" hidden>Если оплачиваешь месяц за месяцем без пауз — цена фиксируется. Пропустил(а) — снова 1 999₽ за входной месяц.</div>
 
-        <div class="q" tabindex="0">Можно ли вернуть деньги?</div>
-        <div class="a">Да, в течение 2 календарных дней с момента предоставления доступа. Условия — в оферте.</div>
+        <button class="q" aria-expanded="false">Можно ли вернуть деньги?</button>
+        <div class="a" hidden>Да, в течение 2 календарных дней с момента предоставления доступа. Условия — в оферте.</div>
 
-        <div class="q" tabindex="0">Где идёт оплата?</div>
-        <div class="a">Через Telegram‑бота (быстро и удобно). Можно написать в директ — поможем вручную.</div>
+        <button class="q" aria-expanded="false">Где идёт оплата?</button>
+        <div class="a" hidden>Через Telegram‑бота (быстро и удобно). Можно написать в директ — поможем вручную.</div>
       </div>
     </div>
   </section>
@@ -266,12 +247,15 @@
 </footer>
 
 <script>
-/* FAQ */
-document.querySelectorAll('.faq .q').forEach(q=>{
-  q.addEventListener('click',()=>toggleQA(q));
-  q.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleQA(q);} });
+/* FAQ — ответы скрыты до клика */
+document.querySelectorAll('.faq .q').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const ans = btn.nextElementSibling;
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    if(expanded){ ans.setAttribute('hidden',''); } else { ans.removeAttribute('hidden'); }
+  });
 });
-function toggleQA(q){ const a=q.nextElementSibling; a.style.display=a.style.display==='block'?'none':'block'; }
 
 /* Scroll‑reveal карточек */
 (function(){
@@ -302,11 +286,11 @@ function launchConfetti(){
       p.x+=p.dx;p.y+=p.dy;p.a-=.006;if(p.y>canvas.height)p.y=-10;});ctx.globalAlpha=1;t++; if(t<360)requestAnimationFrame(loop);})();
 }
 
-/* Таймер 20 минут: панель + плавающий чип + пульсация CTA < 2 мин + прилипание к CTA */
+/* Таймер 10 минут: панель + пульсация CTA < 2 мин */
 (function(){
   const EL=document.getElementById('countdown');
-  const EL2=document.getElementById('countdownFloat');
-  const KEY='instaklab_timer_ends'; const DURATION_MIN=20;
+  const KEY='instaklab_timer_ends_10min';
+  const DURATION_MIN=10;
   let ends=localStorage.getItem(KEY);
   if(!ends){ ends=Date.now()+DURATION_MIN*60*1000; localStorage.setItem(KEY, ends); } else { ends=parseInt(ends,10); }
 
@@ -314,47 +298,12 @@ function launchConfetti(){
   function fmt(ms){ const m=Math.floor(ms/60000), s=Math.floor((ms%60000)/1000); return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
   function tick(){
     const ms=Math.max(0, ends - Date.now());
-    const t=fmt(ms);
-    EL.textContent=t; EL2.textContent=t;
+    EL.textContent = fmt(ms);
 
     if(ms<=120000 && ms>0){ ctas.forEach(b=>b.classList.add('pulse')); } else { ctas.forEach(b=>b.classList.remove('pulse')); }
     if(ms<=0){ ctas.forEach(b=>b.classList.remove('pulse')); launchConfetti(); clearInterval(iv); }
   }
   tick(); const iv=setInterval(tick,1000);
-
-  /* Плавающий чип — следует за курсором, но «прилипает» к CTA */
-  const chip=document.getElementById('timerFloat');
-  let cx=16, cy=16, tx=cx, ty=cy, follow=true;
-  function move(){ cx+=(tx-cx)*.15; cy+=(ty-cy)*.15; chip.style.transform=`translate(${cx}px, ${cy}px)`; requestAnimationFrame(move); }
-  move();
-
-  addEventListener('mousemove',e=>{ if(follow){ tx=e.clientX+18; ty=e.clientY+24; } });
-  addEventListener('touchstart',()=>{ follow=false; chip.style.transform='translate(0,0)'; }, {passive:true});
-
-  function snapTo(el){
-    const r=el.getBoundingClientRect();
-    // позиционируем чип чуть выше и правее кнопки
-    tx = r.left + r.width - 10;
-    ty = r.top - 12;
-  }
-  function startSnap(){ follow=false; }
-  function stopSnap(){ follow=true; }
-
-  const plan=document.getElementById('planMain');
-  const ctaPrice=document.getElementById('ctaPrice');
-  const ctaHero=document.getElementById('ctaHero');
-
-  // При наведении на блок тарифа или на CTA — прилипание
-  plan.addEventListener('mouseenter', ()=>{ startSnap(); snapTo(ctaPrice); });
-  plan.addEventListener('mousemove', ()=>{ snapTo(ctaPrice); });
-  plan.addEventListener('mouseleave', stopSnap);
-
-  ctaPrice.addEventListener('mouseenter', ()=>{ startSnap(); snapTo(ctaPrice); });
-  ctaPrice.addEventListener('mouseleave', stopSnap);
-
-  // Если пользователь ведёт к CTA в хедере — тоже прилипание
-  ctaHero.addEventListener('mouseenter', ()=>{ startSnap(); snapTo(ctaHero); });
-  ctaHero.addEventListener('mouseleave', stopSnap);
 })();
 </script>
 </body>
