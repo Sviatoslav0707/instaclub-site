@@ -7,6 +7,7 @@
   <meta name="description" content="Инстаклаб — закрытый клуб для тех, кто хочет запустить блог без хаоса и страха камеры. Простые шаги, разборы, эфиры, окружение. Первый платёж 1 999₽, продление 999₽. Первым 50 — 1 499₽.">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --bg:#0f1221;--card:#14182b;--text:#f6f7fb;--muted:#c9cee5;
@@ -17,7 +18,21 @@
     html,body{margin:0;background:var(--bg);color:var(--text);font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.55}
     a{color:var(--accent);text-decoration:none}
     .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-    header{background:linear-gradient(135deg,var(--brand1),var(--brand2));padding:56px 0 72px;border-bottom-left-radius:42px;border-bottom-right-radius:42px}
+
+    /* Шапка с анимированным градиентом */
+    header{
+      position:relative;overflow:hidden;
+      padding:56px 0 72px;border-bottom-left-radius:42px;border-bottom-right-radius:42px;
+      background:linear-gradient(135deg,var(--brand1),var(--brand2));
+      isolation:isolate;
+    }
+    header::before{
+      content:"";position:absolute;inset:-20%;
+      background:conic-gradient(from 0deg at 50% 50%, #ffffff22, #ffffff06, #ffffff22);
+      filter:blur(60px);opacity:.6;animation:spin 18s linear infinite;z-index:-1;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
     .hero{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center}
     .h1{font-weight:800;font-size:44px;margin:0 0 14px}
     .lead{opacity:.95;font-size:18px;margin:0 0 22px}
@@ -29,12 +44,15 @@
     @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,211,92,.6)}70%{box-shadow:0 0 0 15px rgba(255,211,92,0)}100%{box-shadow:0 0 0 0 rgba(255,211,92,0)}}
     .note{font-size:14px;opacity:.9}
     .badge{display:inline-flex;gap:8px;align-items:center;background:#1113;border:1px solid #ffffff40;color:#fff;padding:6px 10px;border-radius:999px;font-size:13px}
-    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow)}
+
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);opacity:0;transform:translateY(14px) scale(.98);transition:opacity .6s ease, transform .6s ease}
+    .card.revealed{opacity:1;transform:translateY(0) scale(1)}
     .section{padding:70px 0}
     .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
     .feature{padding:20px}
     .feature h3{margin:0 0 6px}
+
     .price{display:grid;grid-template-columns:1fr 1fr;gap:18px}
     .plan{padding:24px}
     .priceTag{font-size:34px;font-weight:800;margin:8px 0}
@@ -42,59 +60,204 @@
     .list li{margin:8px 0;padding-left:26px;position:relative}
     .list li:before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
     .muted{color:var(--muted)}
-    .faq .q{cursor:pointer;padding:18px;border-bottom:1px solid #2a2f4b}
-    .faq .a{display:none;padding:0 18px 18px;color:var(--muted)}
-    footer{padding:40px 0 70px;color:var(--muted)}
     .kicker{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
     .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#2a2f4b;color:#fff;font-size:12px}
     .seat{font-weight:700;color:#ffe8a6}
+
     .illus{min-height:260px;background:linear-gradient(135deg,#ffffff1a,#00000020),url('assets/hero_group.jpg') center/cover;border-radius:20px}
+    footer{padding:40px 0 70px;color:var(--muted)}
+
+    /* Верхняя панель таймера (статус) */
     #timerBar{position:sticky;top:0;z-index:9999;background:#0a0d1c;border-bottom:1px solid #222845;padding:10px 16px;text-align:center;font-weight:700}
     #countdown{display:inline-block;min-width:92px}
-    #cursorBlob{position:fixed;left:0;top:0;width:26px;height:26px;border-radius:50%;pointer-events:none;z-index:9998;background:radial-gradient(ellipse at center,#ffffff88 0%,#ffffff22 60%,transparent 72%);mix-blend-mode:screen;transform:translate(-50%,-50%);opacity:.85;transition:opacity .2s ease}
+
+    /* Плавающий чип-таймер — следует за курсором / прилипает к CTA */
+    #timerFloat{
+      position:fixed;left:16px;top:16px;z-index:9999;
+      background:#1b2038;border:1px solid #2d3358;box-shadow:0 6px 22px rgba(0,0,0,.35);
+      padding:8px 12px;border-radius:999px;font-weight:800;display:flex;align-items:center;gap:8px;
+      transition:transform .2s ease, opacity .2s ease;
+    }
+    #timerFloat .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+    #timerFloat .t{min-width:64px;text-align:center}
+
+    /* Курсор‑хало */
+    #cursorBlob{position:fixed;left:0;top:0;width:28px;height:28px;border-radius:50%;pointer-events:none;z-index:9998;background:radial-gradient(ellipse at center,#ffffff88 0%,#ffffff22 60%,transparent 72%);mix-blend-mode:screen;transform:translate(-50%,-50%);opacity:.85;transition:opacity .2s ease}
     @media (prefers-reduced-motion: reduce){#cursorBlob{display:none}}
+
+    /* Конфетти‑канвас */
     #confetti{position:fixed;inset:0;pointer-events:none;z-index:9997}
-    @media (max-width:960px){.hero{grid-template-columns:1fr}.h1{font-size:34px}.grid3{grid-template-columns:1fr}.grid2,.price{grid-template-columns:1fr}}
+
+    @media (max-width:960px){
+      .hero{grid-template-columns:1fr}
+      .h1{font-size:34px}
+      .grid3{grid-template-columns:1fr}
+      .grid2,.price{grid-template-columns:1fr}
+      /* на тач – фиксируем чип внизу справа */
+      #timerFloat{left:auto;right:16px;bottom:16px;top:auto}
+    }
   </style>
 </head>
 <body>
 
-<div id="timerBar">Спец-условия активны ещё: <span id="countdown">--:--</span>
-  <a class="btn primary" style="padding:8px 12px;margin-left:10px" href="https://t.me/intaclub_bot" target="_blank">Забрать место</a>
+<!-- Статус-бар таймера -->
+<div id="timerBar">Спец‑условия активны ещё: <span id="countdown">--:--</span>
+  <a class="btn primary" style="padding:8px 12px;margin-left:10px" href="https://t.me/intaclub_bot" target="_blank" rel="noopener">Забрать место</a>
 </div>
 
-<div id="cursorBlob"></div>
-<canvas id="confetti"></canvas>
+<!-- Плавающий чип-таймер -->
+<div id="timerFloat" aria-live="polite">
+  <span class="dot" aria-hidden="true"></span>
+  <span class="t" id="countdownFloat">--:--</span>
+  <span style="opacity:.8">осталось</span>
+</div>
 
-<header>
-  <div class="wrap hero">
+<!-- Курсор‑хало и конфетти -->
+<div id="cursorBlob" aria-hidden="true"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<header role="banner">
+  <div class="wrap hero" aria-label="Инстаклаб — клуб, где блог оживает">
     <div>
       <div class="badge">Закрытый клуб • без воды</div>
       <h1 class="h1">Инстаклаб — клуб, где блог оживает</h1>
       <p class="lead">Запусти блог без хаоса и страха камеры. Простые шаги, разборы и окружение, которое поддержит.</p>
-      <div class="ctaRow">
-        <a class="btn primary cta" href="https://t.me/intaclub_bot" target="_blank">Открыть бота</a>
+      <div class="ctaRow" role="group" aria-label="основные действия">
+        <a class="btn primary cta" id="ctaHero" href="https://t.me/intaclub_bot" target="_blank" rel="noopener">Открыть бота</a>
         <a class="btn secondary" href="#price">Смотреть тариф</a>
       </div>
       <div class="note">Первый платёж — <b>1 999₽</b>. Продление — <b>999₽/мес</b>. <span class="seat">Первые 50 — 1 499₽.</span></div>
     </div>
-    <img src="assets/hero_group.jpg" alt="Команда Инстаклаба" style="width:100%;border-radius:20px">
+    <img src="assets/hero_group.jpg" alt="Команда Инстаклаба" style="width:100%;height:auto;border-radius:20px;display:block">
   </div>
 </header>
 
 <main>
-  <section class="section"><div class="wrap"><h2>Отзывы участников</h2><div class="grid2">
-    <div class="card feature" style="text-align:center; padding:28px">
-      <img src="review_anastasia.jpg" alt="Анастасия" style="width:100px;height:100px;border-radius:50%;margin-bottom:16px">
-      <p><b>«Я просто сняла рилс — и он набрал 60 миллионов…»</b></p>
-      <p class="muted">Анастасия пришла на курс, как и ты — с сомнениями. Результат? +20 000 подписчиков и видео, которое увидел весь Instagram.</p>
+  <!-- Что внутри -->
+  <section class="section">
+    <div class="wrap">
+      <div class="kicker">Что внутри</div>
+      <h2 style="margin-top:6px">Всё, чтобы начать и не слиться через неделю</h2>
+      <div class="grid3">
+        <div class="card feature"><h3>Включение новичка</h3><p class="muted">Первые шаги, чтобы спокойно выйти в кадр и понять план на неделю.</p></div>
+        <div class="card feature"><h3>База знаний</h3><p class="muted">Сторис/первый рилс/мышление блогера — коротко и по делу.</p></div>
+        <div class="card feature"><h3>Еженедельные задания</h3><p class="muted">Простые задачи на 15–20 мин, которые реально двигают блог.</p></div>
+        <div class="card feature"><h3>Разборы</h3><p class="muted">Обратная связь по рилсам и профилям: что правим и зачем.</p></div>
+        <div class="card feature"><h3>Лайк‑тайм</h3><p class="muted">Взаимная активность комьюнити, чтобы пнуть охваты.</p></div>
+        <div class="card feature"><h3>Эфиры и гайды</h3><p class="muted">Аудио/видео эфиры, полезные статьи и контент‑банк.</p></div>
+      </div>
     </div>
-    <div class="card feature" style="text-align:center; padding:28px">
-      <img src="review_gulshat.jpg" alt="Гульшат" style="width:100px;height:100px;border-radius:50%;margin-bottom:16px">
-      <p><b>«Я пришла за волшебным пинком — и обрела себя заново»</b></p>
-      <p class="muted">Гульшат 3 года откладывала запуск марафона. Курс стал точкой трансформации: запустила продукт, провела 5+ потоков и стала куратором.</p>
+  </section>
+
+  <!-- Для кого + Результаты -->
+  <section class="section">
+    <div class="wrap grid2">
+      <div class="card feature">
+        <div class="kicker">Для кого</div>
+        <h3>Новички, эксперты, предприниматели</h3>
+        <ul class="list">
+          <li>Начинаешь с нуля и страшно выходить в кадр.</li>
+          <li>Ведёшь блог, но всё хаотично и «на вдохновении».</li>
+          <li>Нужен блог для заявок и продаж, а не просто лайков.</li>
+        </ul>
+      </div>
+      <div class="card feature">
+        <div class="kicker">Результаты</div>
+        <h3>Что получишь за первый месяц</h3>
+        <ul class="list">
+          <li>Упакованный, понятный профиль.</li>
+          <li>Первые рилсы и живые сторис.</li>
+          <li>Системный план и привычку публиковаться.</li>
+          <li>Окружение, где не стыдно начинать.</li>
+        </ul>
+      </div>
     </div>
-  </div></div></section>
+  </section>
+
+  <!-- Как это работает -->
+  <section class="section">
+    <div class="wrap grid3">
+      <div class="card feature"><div class="pill">Шаг 1</div><h3>Оплата</h3><p class="muted">Акцепт оферты и первый платёж. Доступ выдаём в течение 48 часов.</p></div>
+      <div class="card feature"><div class="pill">Шаг 2</div><h3>Доступ и чат</h3><p class="muted">Открываем материалы и добавляем в закрытое сообщество.</p></div>
+      <div class="card feature"><div class="pill">Шаг 3</div><h3>Движ</h3><p class="muted">Задания, эфиры, разборы. Маленькие шаги → заметный прогресс.</p></div>
+    </div>
+  </section>
+
+  <!-- Отзывы -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Отзывы участников</h2>
+      <div class="grid2">
+        <div class="card feature" style="text-align:center; padding:28px">
+          <img src="review_anastasia.jpg" alt="Анастасия" style="width:100px;height:100px;border-radius:50%;margin-bottom:16px">
+          <p><b>«Я просто сняла рилс — и он набрал 60 миллионов…»</b></p>
+          <p class="muted">Анастасия пришла на курс с сомнениями. Результат? <b>+20 000 подписчиков</b> и видео, которое увидел весь Instagram.</p>
+        </div>
+        <div class="card feature" style="text-align:center; padding:28px">
+          <img src="review_gulshat.jpg" alt="Гульшат" style="width:100px;height:100px;border-radius:50%;margin-bottom:16px">
+          <p><b>«Я пришла за волшебным пинком — и обрела себя заново»</b></p>
+          <p class="muted">Гульшат 3 года откладывала запуск марафона. Курс стал точкой трансформации: запустила продукт, провела <b>5+ потоков</b> и стала куратором.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Тариф -->
+  <section class="section" id="price" aria-labelledby="price-h">
+    <div class="wrap">
+      <h2 id="price-h">Просто и честно — один тариф</h2>
+      <div class="price">
+        <div class="card plan" role="region" aria-label="Тариф Месячная подписка" id="planMain">
+          <h3>Месячная подписка</h3>
+          <div class="priceTag">1 999₽</div>
+          <p class="muted">Продление без перерыва — <b>999₽/мес</b>.</p>
+          <p class="muted"><span class="seat">Первые 50 — 1 499₽</span> (фиксируется при оплате).</p>
+          <ul class="list">
+            <li>Доступ ко всей базе знаний</li>
+            <li>Еженедельные задания и разборы</li>
+            <li>Эфиры, контент‑банк, лайк‑тайм</li>
+            <li>Живые встречи (онлайн/офлайн)</li>
+          </ul>
+          <div class="ctaRow" style="margin-top:16px">
+            <a class="btn primary cta" id="ctaPrice" href="https://t.me/intaclub_bot" target="_blank" rel="noopener">Перейти к оплате в боте</a>
+          </div>
+          <p class="muted" style="margin-top:10px">Возврат возможен в течение 2 календарных дней с момента предоставления доступа — по оферте.</p>
+        </div>
+        <div class="card plan">
+          <h3>Что будет дальше</h3>
+          <ul class="list">
+            <li>Сразу получишь «Включение новичка» и чек‑лист первой недели.</li>
+            <li>Добавим в чат — там поддержка и обратная связь.</li>
+            <li>Раз в неделю — эфир/гайд и разборы рилсов.</li>
+            <li>Продление 999₽/мес — чтобы не терять темп и окружение.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Частые вопросы</h2>
+      <div class="card faq" role="region" aria-label="FAQ">
+        <div class="q" tabindex="0">Я полный ноль. У меня получится?</div>
+        <div class="a">Да. Клуб сделан как раз под старт: «Включение новичка», короткие задания, поддержка и разборы.</div>
+
+        <div class="q" tabindex="0">Сколько времени нужно в день?</div>
+        <div class="a">15–20 минут на задание + 5–7 сторис. Этого хватит, чтобы двигаться без выгорания.</div>
+
+        <div class="q" tabindex="0">Как оформить продление за 999₽?</div>
+        <div class="a">Если оплачиваешь месяц за месяцем без пауз — цена фиксируется. Пропустил(а) — снова 1 999₽ за входной месяц.</div>
+
+        <div class="q" tabindex="0">Можно ли вернуть деньги?</div>
+        <div class="a">Да, в течение 2 календарных дней с момента предоставления доступа. Условия — в оферте.</div>
+
+        <div class="q" tabindex="0">Где идёт оплата?</div>
+        <div class="a">Через Telegram‑бота (быстро и удобно). Можно написать в директ — поможем вручную.</div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer class="wrap">
@@ -103,33 +266,96 @@
 </footer>
 
 <script>
-/* Курсор-хало */
+/* FAQ */
+document.querySelectorAll('.faq .q').forEach(q=>{
+  q.addEventListener('click',()=>toggleQA(q));
+  q.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleQA(q);} });
+});
+function toggleQA(q){ const a=q.nextElementSibling; a.style.display=a.style.display==='block'?'none':'block'; }
+
+/* Scroll‑reveal карточек */
+(function(){
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('revealed'); io.unobserve(en.target); } });
+  }, {threshold:.12});
+  document.querySelectorAll('.card').forEach(el=> io.observe(el));
+})();
+
+/* Курсор‑хало */
 (function(){
   const blob=document.getElementById('cursorBlob');
-  let x=window.innerWidth/2,y=window.innerHeight/2,tx=x,ty=y;
+  let x=innerWidth/2,y=innerHeight/2,tx=x,ty=y;
   function raf(){x+=(tx-x)*.18;y+=(ty-y)*.18;blob.style.transform=`translate(${x}px,${y}px)`;requestAnimationFrame(raf)}
-  window.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;blob.style.opacity=.85});
-  window.addEventListener('mouseleave',()=>blob.style.opacity=0);
+  addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;blob.style.opacity=.85});
+  addEventListener('mouseleave',()=>blob.style.opacity=0);
+  addEventListener('touchstart',()=>blob.style.display='none',{passive:true});
   raf();
 })();
-/* Таймер */
-(function(){
-  const EL=document.getElementById('countdown');const KEY='instaklab_timer_ends';const DUR=20;
-  let ends=localStorage.getItem(KEY);if(!ends){ends=Date.now()+DUR*60*1000;localStorage.setItem(KEY,ends)}else ends=parseInt(ends,10);
-  const ctas=document.querySelectorAll('.btn.primary');
-  function tick(){const ms=Math.max(0,ends-Date.now());const m=Math.floor(ms/60000),s=Math.floor((ms%60000)/1000);
-    EL.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    if(ms<=120000&&ms>0){ctas.forEach(b=>b.classList.add('pulse'))}else{ctas.forEach(b=>b.classList.remove('pulse'))}
-    if(ms<=0){EL.textContent='00:00';launchConfetti();clearInterval(iv)}}
-  tick();const iv=setInterval(tick,1000);
-})();
+
 /* Конфетти */
 function launchConfetti(){
-  const canvas=document.getElementById('confetti');const ctx=canvas.getContext('2d');canvas.width=innerWidth;canvas.height=innerHeight;
-  const pieces=new Array(100).fill().map(()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*6+4,dx:Math.random()*2-1,dy:Math.random()*2+2,color:`hsl(${Math.random()*360},100%,60%)`}));
-  function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);pieces.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.color;ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.y>canvas.height)p.y=-10})}
-  let t=0;function loop(){draw();t++;if(t<300)requestAnimationFrame(loop)}loop();
+  const canvas=document.getElementById('confetti');const ctx=canvas.getContext('2d');
+  canvas.width=innerWidth;canvas.height=innerHeight;
+  const pieces=new Array(140).fill().map(()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height/2,r:Math.random()*5+3,dx:Math.random()*2-1,dy:Math.random()*2+2,color:`hsl(${Math.random()*360},100%,60%)`,a:1}));
+  let t=0; (function loop(){ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{ctx.globalAlpha=p.a;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.color;ctx.fill();
+      p.x+=p.dx;p.y+=p.dy;p.a-=.006;if(p.y>canvas.height)p.y=-10;});ctx.globalAlpha=1;t++; if(t<360)requestAnimationFrame(loop);})();
 }
+
+/* Таймер 20 минут: панель + плавающий чип + пульсация CTA < 2 мин + прилипание к CTA */
+(function(){
+  const EL=document.getElementById('countdown');
+  const EL2=document.getElementById('countdownFloat');
+  const KEY='instaklab_timer_ends'; const DURATION_MIN=20;
+  let ends=localStorage.getItem(KEY);
+  if(!ends){ ends=Date.now()+DURATION_MIN*60*1000; localStorage.setItem(KEY, ends); } else { ends=parseInt(ends,10); }
+
+  const ctas=document.querySelectorAll('.btn.primary');
+  function fmt(ms){ const m=Math.floor(ms/60000), s=Math.floor((ms%60000)/1000); return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
+  function tick(){
+    const ms=Math.max(0, ends - Date.now());
+    const t=fmt(ms);
+    EL.textContent=t; EL2.textContent=t;
+
+    if(ms<=120000 && ms>0){ ctas.forEach(b=>b.classList.add('pulse')); } else { ctas.forEach(b=>b.classList.remove('pulse')); }
+    if(ms<=0){ ctas.forEach(b=>b.classList.remove('pulse')); launchConfetti(); clearInterval(iv); }
+  }
+  tick(); const iv=setInterval(tick,1000);
+
+  /* Плавающий чип — следует за курсором, но «прилипает» к CTA */
+  const chip=document.getElementById('timerFloat');
+  let cx=16, cy=16, tx=cx, ty=cy, follow=true;
+  function move(){ cx+=(tx-cx)*.15; cy+=(ty-cy)*.15; chip.style.transform=`translate(${cx}px, ${cy}px)`; requestAnimationFrame(move); }
+  move();
+
+  addEventListener('mousemove',e=>{ if(follow){ tx=e.clientX+18; ty=e.clientY+24; } });
+  addEventListener('touchstart',()=>{ follow=false; chip.style.transform='translate(0,0)'; }, {passive:true});
+
+  function snapTo(el){
+    const r=el.getBoundingClientRect();
+    // позиционируем чип чуть выше и правее кнопки
+    tx = r.left + r.width - 10;
+    ty = r.top - 12;
+  }
+  function startSnap(){ follow=false; }
+  function stopSnap(){ follow=true; }
+
+  const plan=document.getElementById('planMain');
+  const ctaPrice=document.getElementById('ctaPrice');
+  const ctaHero=document.getElementById('ctaHero');
+
+  // При наведении на блок тарифа или на CTA — прилипание
+  plan.addEventListener('mouseenter', ()=>{ startSnap(); snapTo(ctaPrice); });
+  plan.addEventListener('mousemove', ()=>{ snapTo(ctaPrice); });
+  plan.addEventListener('mouseleave', stopSnap);
+
+  ctaPrice.addEventListener('mouseenter', ()=>{ startSnap(); snapTo(ctaPrice); });
+  ctaPrice.addEventListener('mouseleave', stopSnap);
+
+  // Если пользователь ведёт к CTA в хедере — тоже прилипание
+  ctaHero.addEventListener('mouseenter', ()=>{ startSnap(); snapTo(ctaHero); });
+  ctaHero.addEventListener('mouseleave', stopSnap);
+})();
 </script>
 </body>
 </html>
