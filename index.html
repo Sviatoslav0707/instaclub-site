@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <title>Инстаклаб — клуб, где блог оживает</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Инстаклаб — закрытый клуб для тех, кто хочет запустить блог без хаоса и страха камеры. Простые шаги, разборы, эфиры, окружение. Первый платёж 1 999₽, продление 999₽. Первым 50 — 1 499₽.">
+  <meta name="description" content="Инстаклаб — закрытый клуб для тех, кто хочет запустить блог без хаоса и страха камеры. Простые шаги, разборы, эфиры, окружение. Первый платёж 1 999₽, продление 999₽. Первым 50 — 1 499₽.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Инстаклаб — клуб, где блог оживает">
   <meta property="og:description" content="Запусти блог, прокачай контент и стань заметным. Простые шаги, разборы, эфиры, окружение.">
-  <meta property="og:image" content="assets/case_anastasia_1080x1920.jpg">
+  <meta property="og:image" content="assets/hero_group.jpg">
   <meta property="og:url" content="https://example.com">
   <style>
     :root{--bg:#0f1221;--card:#14182b;--text:#f6f7fb;--muted:#c9cee5;--brand1:#ff3d6e;--brand2:#ff9a3d;--accent:#ffd35c;--ok:#4cd97b;--radius:14px;--shadow:0 10px 30px rgba(0,0,0,.35)}
@@ -48,18 +48,12 @@
     .kicker{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
     .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#2a2f4b;color:#fff;font-size:12px}
     .seat{font-weight:700;color:#ffe8a6}
-    .illus{min-height:260px;background:linear-gradient(135deg,#ffffff1a,#00000020),url('assets/case_anastasia_1080x1920.jpg') center/cover;border-radius:20px}
-    .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .rev{padding:0;border-left:4px solid #ffd35c;overflow:hidden}
-    .rev img{display:block;width:100%;height:auto}
-    .rev .txt{padding:18px}
-    .rev .name{font-weight:700;margin-top:10px}
-    .rev .role{color:var(--muted);font-size:14px}
+    .illus{min-height:260px;background:linear-gradient(135deg,#ffffff1a,#00000020),url('assets/hero_group.jpg') center/cover;border-radius:20px}
     @media (max-width:960px){
       .hero{grid-template-columns:1fr}
       .h1{font-size:34px}
       .grid3{grid-template-columns:1fr}
-      .grid2,.price,.reviews{grid-template-columns:1fr}
+      .grid2,.price{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -74,7 +68,7 @@
         <a class="btn primary" href="https://t.me/intaclub_bot" target="_blank" rel="noopener">Открыть бота</a>
         <a class="btn secondary" href="#price">Смотреть тариф</a>
       </div>
-      <div class="note">Первый платёж — <b>1 999₽</b>. Продление — <b>999₽/мес</b>. <span class="seat">Первые 50 — 1 499₽.</span></div>
+      <div class="note">Первый платёж — <b>1 999₽</b>. Продление — <b>999₽/мес</b>. <span class="seat">Первые 50 — 1 499₽.</span></div>
     </div>
     <img src="assets/hero_group.jpg" alt="Команда Инстаклаба" style="width:100%;height:auto;border-radius:20px;display:block">
   </div>
@@ -89,54 +83,58 @@
         <div class="card feature"><h3>База знаний</h3><p class="muted">Сторис, первый рилс, мышление блогера — коротко и по делу.</p></div>
         <div class="card feature"><h3>Еженедельные задания</h3><p class="muted">Простые задачи на 15–20 минут, которые реально двигают блог.</p></div>
         <div class="card feature"><h3>Разборы</h3><p class="muted">Обратная связь по рилсам и профилям: что правим и зачем.</p></div>
-        <div class="card feature"><h3>Лайк‑тайм</h3><p class="muted">Взаимная активность комьюнити, чтобы пнуть охваты.</p></div>
-        <div class="card feature"><h3>Эфиры и гайды</h3><p class="muted">Аудио/видео эфиры, полезные статьи, контент‑банк заголовков и рубрик.</p></div>
+        <div class="card feature"><h3>Лайк-тайм</h3><p class="muted">Взаимная активность комьюнити, чтобы пнуть охваты.</p></div>
+        <div class="card feature"><h3>Эфиры и гайды</h3><p class="muted">Аудио/видео эфиры, полезные статьи, контент-банк заголовков и рубрик.</p></div>
       </div>
     </div>
   </section>
-<section class="section">
-  <div class="wrap">
-    <h2>Отзывы участников</h2>
-    <div class="grid2">
 
-      <!-- Анастасия -->
-      <div class="card feature" style="text-align:center; padding:28px">
-        <img src="assets/review_anastasia.jpg" alt="Анастасия"
-             style="width:100px;height:100px;border-radius:50%;margin-bottom:16px">
-        <p><b>«Я просто сняла рилс — и он набрал 60 миллионов…»</b></p>
-        <p class="muted">
-          Анастасия пришла на курс, как и ты — с желанием начать, но с кучей сомнений.
-          Результат? <b>+20 000 подписчиков</b> и видео, которое увидел весь Instagram.
-        </p>
+  <!-- Отзывы -->
+  <section class="section">
+    <div class="wrap">
+      <h2>Отзывы участников</h2>
+      <div class="grid2">
+
+        <!-- Анастасия -->
+        <div class="card feature" style="text-align:center; padding:28px">
+          <img src="assets/review_anastasia.jpg" alt="Анастасия"
+               style="width:100px;height:100px;border-radius:50%;margin-bottom:16px">
+          <p><b>«Я просто сняла рилс — и он набрал 60 миллионов…»</b></p>
+          <p class="muted">
+            Анастасия пришла на курс, как и ты — с желанием начать, но с кучей сомнений.
+            Результат? <b>+20 000 подписчиков</b> и видео, которое увидел весь Instagram.
+          </p>
+        </div>
+
+        <!-- Гульшат -->
+        <div class="card feature" style="text-align:center; padding:28px">
+          <img src="assets/review_gulshat.jpg" alt="Гульшат"
+               style="width:100px;height:100px;border-radius:50%;margin-bottom:16px">
+          <p><b>«Я пришла за волшебным пинком — и обрела себя заново»</b></p>
+          <p class="muted">
+            Гульшат 3 года откладывала запуск марафона. Курс стал точкой трансформации:
+            запустила продукт, провела <b>5+ потоков</b> и стала куратором.
+          </p>
+        </div>
+
       </div>
-
-      <!-- Гульшат -->
-      <div class="card feature" style="text-align:center; padding:28px">
-        <img src="assets/review_gulshat.jpg" alt="Гульшат"
-             style="width:100px;height:100px;border-radius:50%;margin-bottom:16px">
-        <p><b>«Я пришла за волшебным пинком — и обрела себя заново»</b></p>
-        <p class="muted">
-          Гульшат 3 года откладывала запуск марафона. Курс стал точкой трансформации:
-          запустила продукт, провела <b>5+ потоков</b> и стала куратором.
-        </p>
-      </div>
-
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- Тариф -->
   <section class="section" id="price" aria-labelledby="price-h">
     <div class="wrap">
       <h2 id="price-h">Просто и честно — один тариф</h2>
       <div class="price">
         <div class="card plan" role="region" aria-label="Тариф Месячная подписка">
           <h3>Месячная подписка</h3>
-          <div class="priceTag">1 999₽</div>
+          <div class="priceTag">1 999₽</div>
           <p class="muted">Продление без перерыва — <b>999₽/мес</b>.</p>
-          <p class="muted"><span class="seat">Первые 50 — 1 499₽</span> (фиксируется при оплате).</p>
+          <p class="muted"><span class="seat">Первые 50 — 1 499₽</span> (фиксируется при оплате).</p>
           <ul class="list">
             <li>Доступ ко всей базе знаний</li>
             <li>Еженедельные задания и разборы</li>
-            <li>Эфиры, контент‑банк, лайк‑тайм</li>
+            <li>Эфиры, контент-банк, лайк-тайм</li>
             <li>Живые встречи (онлайн/офлайн)</li>
           </ul>
           <div class="ctaRow" style="margin-top:16px">
@@ -147,7 +145,7 @@
         <div class="card plan">
           <h3>Что будет дальше</h3>
           <ul class="list">
-            <li>Сразу получишь «Включение новичка» и чек‑лист первой недели.</li>
+            <li>Сразу получишь «Включение новичка» и чек-лист первой недели.</li>
             <li>Добавим в чат — там поддержка и обратная связь.</li>
             <li>Раз в неделю — эфир/гайд и разборы рилсов.</li>
             <li>Продление 999₽/мес — чтобы не терять темп и окружение.</li>
@@ -157,6 +155,8 @@
       </div>
     </div>
   </section>
+
+  <!-- FAQ -->
   <section class="section">
     <div class="wrap">
       <h2>Частые вопросы</h2>
@@ -166,11 +166,11 @@
         <div class="q" tabindex="0">Сколько времени нужно в день?</div>
         <div class="a">15–20 минут на задание + 5–7 сторис. Этого хватит, чтобы двигаться без выгорания.</div>
         <div class="q" tabindex="0">Как оформить продление за 999₽?</div>
-        <div class="a">Если оплачиваешь месяц за месяцем без пауз — цена фиксируется. Пропустил(а) — снова 1 999₽ за входной месяц.</div>
+        <div class="a">Если оплачиваешь месяц за месяцем без пауз — цена фиксируется. Пропустил(а) — снова 1 999₽ за входной месяц.</div>
         <div class="q" tabindex="0">Можно ли вернуть деньги?</div>
         <div class="a">Да, в течение 2 календарных дней с момента предоставления доступа. Условия — в оферте.</div>
         <div class="q" tabindex="0">Где идёт оплата?</div>
-        <div class="a">Через Telegram‑бота (быстро и удобно). Можно написать в директ — поможем вручную.</div>
+        <div class="a">Через Telegram-бота (быстро и удобно). Можно написать в директ — поможем вручную.</div>
       </div>
     </div>
   </section>
@@ -185,7 +185,7 @@
   });
   function toggleQA(q){ const a=q.nextElementSibling; a.style.display=a.style.display==='block'?'none':'block'; }
   const seatEls=document.querySelectorAll('.seat'); const left=28;
-  seatEls.forEach(el=>el.textContent=`Первые 50 — 1 499₽ • осталось мест: ${left}`);
+  seatEls.forEach(el=>el.textContent=`Первые 50 — 1 499₽ • осталось мест: ${left}`);
 </script>
 </body>
 </html>
